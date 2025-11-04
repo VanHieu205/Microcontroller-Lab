@@ -1,0 +1,18 @@
+/*
+ * fsm_traffic_light.h
+ *
+ *  Created on: Oct 16, 2025
+ *      Author: ADMIN
+ */
+#ifndef INC_FSM_TRAFFIC_LIGHT_H_
+#define INC_FSM_TRAFFIC_LIGHT_H_
+
+#include "global.h"
+#include "button.h"
+#include "main.h"
+#include "display7SEG.h"
+#include "software_timer.h"
+
+void fsm_traffic_light();
+
+#endif /* INC_FSM_TRAFFIC_LIGHT_H_ */
