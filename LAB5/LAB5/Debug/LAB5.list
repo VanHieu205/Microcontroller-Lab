@@ -2346,9 +2346,9 @@ void uart_communication_fsm(ADC_HandleTypeDef hadc1, UART_HandleTypeDef huart2) 
  80011ea:	4b3d      	ldr	r3, [pc, #244]	; (80012e0 <uart_communication_fsm+0x104>)
  80011ec:	681b      	ldr	r3, [r3, #0]
  80011ee:	2b0c      	cmp	r3, #12
- 80011f0:	d047      	beq.n	8001282 <uart_communication_fsm+0xa6>
+ 80011f0:	d048      	beq.n	8001284 <uart_communication_fsm+0xa8>
  80011f2:	2b0c      	cmp	r3, #12
- 80011f4:	dc6d      	bgt.n	80012d2 <uart_communication_fsm+0xf6>
+ 80011f4:	dc6e      	bgt.n	80012d4 <uart_communication_fsm+0xf8>
  80011f6:	2b0a      	cmp	r3, #10
  80011f8:	d002      	beq.n	8001200 <uart_communication_fsm+0x24>
  80011fa:	2b0b      	cmp	r3, #11
@@ -2359,12 +2359,12 @@ void uart_communication_fsm(ADC_HandleTypeDef hadc1, UART_HandleTypeDef huart2) 
 
     }
 }
- 80011fe:	e068      	b.n	80012d2 <uart_communication_fsm+0xf6>
+ 80011fe:	e069      	b.n	80012d4 <uart_communication_fsm+0xf8>
         if (command_flag == 1) {
  8001200:	4b38      	ldr	r3, [pc, #224]	; (80012e4 <uart_communication_fsm+0x108>)
  8001202:	781b      	ldrb	r3, [r3, #0]
  8001204:	2b01      	cmp	r3, #1
- 8001206:	d161      	bne.n	80012cc <uart_communication_fsm+0xf0>
+ 8001206:	d162      	bne.n	80012ce <uart_communication_fsm+0xf2>
             command_flag = 0;
  8001208:	4b36      	ldr	r3, [pc, #216]	; (80012e4 <uart_communication_fsm+0x108>)
  800120a:	2200      	movs	r2, #0
@@ -2375,7 +2375,7 @@ void uart_communication_fsm(ADC_HandleTypeDef hadc1, UART_HandleTypeDef huart2) 
  8001212:	f7fe ff9d 	bl	8000150 <strcmp>
  8001216:	4603      	mov	r3, r0
  8001218:	2b00      	cmp	r3, #0
- 800121a:	d157      	bne.n	80012cc <uart_communication_fsm+0xf0>
+ 800121a:	d158      	bne.n	80012ce <uart_communication_fsm+0xf2>
                 HAL_ADC_Start(&hadc1);
  800121c:	f107 0008 	add.w	r0, r7, #8
  8001220:	f000 f9d0 	bl	80015c4 <HAL_ADC_Start>
@@ -2401,7 +2401,7 @@ void uart_communication_fsm(ADC_HandleTypeDef hadc1, UART_HandleTypeDef huart2) 
  800124e:	2001      	movs	r0, #1
  8001250:	f7ff fe02 	bl	8000e58 <setTimer>
         break;
- 8001254:	e03a      	b.n	80012cc <uart_communication_fsm+0xf0>
+ 8001254:	e03b      	b.n	80012ce <uart_communication_fsm+0xf2>
         sprintf((char*)str, "\r\n!ADC=%lu#\r", ADC_value);
  8001256:	4b26      	ldr	r3, [pc, #152]	; (80012f0 <uart_communication_fsm+0x114>)
  8001258:	681b      	ldr	r3, [r3, #0]
@@ -2409,77 +2409,76 @@ void uart_communication_fsm(ADC_HandleTypeDef hadc1, UART_HandleTypeDef huart2) 
  800125c:	4925      	ldr	r1, [pc, #148]	; (80012f4 <uart_communication_fsm+0x118>)
  800125e:	4826      	ldr	r0, [pc, #152]	; (80012f8 <uart_communication_fsm+0x11c>)
  8001260:	f003 f8b6 	bl	80043d0 <siprintf>
-        HAL_UART_Transmit(&huart2, (uint8_t*)str, strlen((char*)str), 50);
+        HAL_UART_Transmit(&huart2, (uint8_t*)str, strlen((char*)str), 1000);
  8001264:	4824      	ldr	r0, [pc, #144]	; (80012f8 <uart_communication_fsm+0x11c>)
  8001266:	f7fe ff7d 	bl	8000164 <strlen>
  800126a:	4603      	mov	r3, r0
  800126c:	b29a      	uxth	r2, r3
  800126e:	f107 0038 	add.w	r0, r7, #56	; 0x38
- 8001272:	2332      	movs	r3, #50	; 0x32
- 8001274:	4920      	ldr	r1, [pc, #128]	; (80012f8 <uart_communication_fsm+0x11c>)
- 8001276:	f002 fa43 	bl	8003700 <HAL_UART_Transmit>
+ 8001272:	f44f 737a 	mov.w	r3, #1000	; 0x3e8
+ 8001276:	4920      	ldr	r1, [pc, #128]	; (80012f8 <uart_communication_fsm+0x11c>)
+ 8001278:	f002 fa42 	bl	8003700 <HAL_UART_Transmit>
         status_uart = WAIT_OK;
- 800127a:	4b19      	ldr	r3, [pc, #100]	; (80012e0 <uart_communication_fsm+0x104>)
- 800127c:	220c      	movs	r2, #12
- 800127e:	601a      	str	r2, [r3, #0]
+ 800127c:	4b18      	ldr	r3, [pc, #96]	; (80012e0 <uart_communication_fsm+0x104>)
+ 800127e:	220c      	movs	r2, #12
+ 8001280:	601a      	str	r2, [r3, #0]
         break;
- 8001280:	e027      	b.n	80012d2 <uart_communication_fsm+0xf6>
+ 8001282:	e027      	b.n	80012d4 <uart_communication_fsm+0xf8>
         if (command_flag == 1) {
- 8001282:	4b18      	ldr	r3, [pc, #96]	; (80012e4 <uart_communication_fsm+0x108>)
- 8001284:	781b      	ldrb	r3, [r3, #0]
- 8001286:	2b01      	cmp	r3, #1
- 8001288:	d110      	bne.n	80012ac <uart_communication_fsm+0xd0>
+ 8001284:	4b17      	ldr	r3, [pc, #92]	; (80012e4 <uart_communication_fsm+0x108>)
+ 8001286:	781b      	ldrb	r3, [r3, #0]
+ 8001288:	2b01      	cmp	r3, #1
+ 800128a:	d110      	bne.n	80012ae <uart_communication_fsm+0xd2>
             command_flag = 0;
- 800128a:	4b16      	ldr	r3, [pc, #88]	; (80012e4 <uart_communication_fsm+0x108>)
- 800128c:	2200      	movs	r2, #0
- 800128e:	701a      	strb	r2, [r3, #0]
+ 800128c:	4b15      	ldr	r3, [pc, #84]	; (80012e4 <uart_communication_fsm+0x108>)
+ 800128e:	2200      	movs	r2, #0
+ 8001290:	701a      	strb	r2, [r3, #0]
             if (strcmp((char*)command, "OK") == 0) {
- 8001290:	491a      	ldr	r1, [pc, #104]	; (80012fc <uart_communication_fsm+0x120>)
- 8001292:	4816      	ldr	r0, [pc, #88]	; (80012ec <uart_communication_fsm+0x110>)
- 8001294:	f7fe ff5c 	bl	8000150 <strcmp>
- 8001298:	4603      	mov	r3, r0
- 800129a:	2b00      	cmp	r3, #0
- 800129c:	d106      	bne.n	80012ac <uart_communication_fsm+0xd0>
+ 8001292:	491a      	ldr	r1, [pc, #104]	; (80012fc <uart_communication_fsm+0x120>)
+ 8001294:	4815      	ldr	r0, [pc, #84]	; (80012ec <uart_communication_fsm+0x110>)
+ 8001296:	f7fe ff5b 	bl	8000150 <strcmp>
+ 800129a:	4603      	mov	r3, r0
+ 800129c:	2b00      	cmp	r3, #0
+ 800129e:	d106      	bne.n	80012ae <uart_communication_fsm+0xd2>
                 clearTimer(1);
- 800129e:	2001      	movs	r0, #1
- 80012a0:	f7ff fdf8 	bl	8000e94 <clearTimer>
+ 80012a0:	2001      	movs	r0, #1
+ 80012a2:	f7ff fdf7 	bl	8000e94 <clearTimer>
                 status_uart = WAIT_RST;
- 80012a4:	4b0e      	ldr	r3, [pc, #56]	; (80012e0 <uart_communication_fsm+0x104>)
- 80012a6:	220a      	movs	r2, #10
- 80012a8:	601a      	str	r2, [r3, #0]
+ 80012a6:	4b0e      	ldr	r3, [pc, #56]	; (80012e0 <uart_communication_fsm+0x104>)
+ 80012a8:	220a      	movs	r2, #10
+ 80012aa:	601a      	str	r2, [r3, #0]
                 break;          //THOÁT TRẠNG THÁI
- 80012aa:	e012      	b.n	80012d2 <uart_communication_fsm+0xf6>
+ 80012ac:	e012      	b.n	80012d4 <uart_communication_fsm+0xf8>
         if (timer_flag[1] == 1) {
- 80012ac:	4b14      	ldr	r3, [pc, #80]	; (8001300 <uart_communication_fsm+0x124>)
- 80012ae:	685b      	ldr	r3, [r3, #4]
- 80012b0:	2b01      	cmp	r3, #1
- 80012b2:	d10d      	bne.n	80012d0 <uart_communication_fsm+0xf4>
+ 80012ae:	4b14      	ldr	r3, [pc, #80]	; (8001300 <uart_communication_fsm+0x124>)
+ 80012b0:	685b      	ldr	r3, [r3, #4]
+ 80012b2:	2b01      	cmp	r3, #1
+ 80012b4:	d10d      	bne.n	80012d2 <uart_communication_fsm+0xf6>
             timer_flag[1] = 0;
- 80012b4:	4b12      	ldr	r3, [pc, #72]	; (8001300 <uart_communication_fsm+0x124>)
- 80012b6:	2200      	movs	r2, #0
- 80012b8:	605a      	str	r2, [r3, #4]
+ 80012b6:	4b12      	ldr	r3, [pc, #72]	; (8001300 <uart_communication_fsm+0x124>)
+ 80012b8:	2200      	movs	r2, #0
+ 80012ba:	605a      	str	r2, [r3, #4]
             status_uart = SEND_ADC;
- 80012ba:	4b09      	ldr	r3, [pc, #36]	; (80012e0 <uart_communication_fsm+0x104>)
- 80012bc:	220b      	movs	r2, #11
- 80012be:	601a      	str	r2, [r3, #0]
+ 80012bc:	4b08      	ldr	r3, [pc, #32]	; (80012e0 <uart_communication_fsm+0x104>)
+ 80012be:	220b      	movs	r2, #11
+ 80012c0:	601a      	str	r2, [r3, #0]
             setTimer(1, 3000);
- 80012c0:	f640 31b8 	movw	r1, #3000	; 0xbb8
- 80012c4:	2001      	movs	r0, #1
- 80012c6:	f7ff fdc7 	bl	8000e58 <setTimer>
+ 80012c2:	f640 31b8 	movw	r1, #3000	; 0xbb8
+ 80012c6:	2001      	movs	r0, #1
+ 80012c8:	f7ff fdc6 	bl	8000e58 <setTimer>
         break;
- 80012ca:	e001      	b.n	80012d0 <uart_communication_fsm+0xf4>
+ 80012cc:	e001      	b.n	80012d2 <uart_communication_fsm+0xf6>
         break;
- 80012cc:	bf00      	nop
- 80012ce:	e000      	b.n	80012d2 <uart_communication_fsm+0xf6>
+ 80012ce:	bf00      	nop
+ 80012d0:	e000      	b.n	80012d4 <uart_communication_fsm+0xf8>
         break;
- 80012d0:	bf00      	nop
-}
  80012d2:	bf00      	nop
- 80012d4:	46bd      	mov	sp, r7
- 80012d6:	e8bd 4080 	ldmia.w	sp!, {r7, lr}
- 80012da:	b004      	add	sp, #16
- 80012dc:	4770      	bx	lr
- 80012de:	bf00      	nop
+}
+ 80012d4:	bf00      	nop
+ 80012d6:	46bd      	mov	sp, r7
+ 80012d8:	e8bd 4080 	ldmia.w	sp!, {r7, lr}
+ 80012dc:	b004      	add	sp, #16
+ 80012de:	4770      	bx	lr
  80012e0:	20000000 	.word	0x20000000
  80012e4:	20000098 	.word	0x20000098
  80012e8:	08004c40 	.word	0x08004c40
